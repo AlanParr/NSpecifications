@@ -9,21 +9,12 @@ namespace NSpecifications
 
         internal NotSpecification(ISpecification<T> inner)
         {
-            if (inner == null)
-                throw new ArgumentNullException("spec");
-
-            Inner = inner;
+            Inner = inner ?? throw new ArgumentNullException(nameof(inner));
         }
 
-        public Expression<Func<T, bool>> Expression
-        {
-            get { return Inner.Expression.Not(); }
-        }
+        public Expression<Func<T, bool>> Expression => Inner.Expression.Not();
 
-        public bool IsSatisfiedBy(T candidate)
-        {
-            return !Inner.IsSatisfiedBy(candidate);
-        }
+        public bool IsSatisfiedBy(T candidate) => !Inner.IsSatisfiedBy(candidate);
     }
 
 }

@@ -12,8 +12,8 @@ namespace NSpecifications.Tests
         public void WhiskeyAndCold()
         {
             // Arrange
-            Drink coldWhiskey = Drink.ColdWhiskey();
-            Drink appleJuice = Drink.AppleJuice();
+            var coldWhiskey = Drink.ColdWhiskey();
+            var appleJuice = Drink.AppleJuice();
             ISpecification<Drink> whiskeySpec = new Spec<Drink>(d => d.Name.ToLower() == "whiskey");
             ISpecification<Drink> coldSpec = new Spec<Drink>(d => d.With.Any(w => w.ToLower() == "ice"));
 
@@ -29,9 +29,9 @@ namespace NSpecifications.Tests
         public void AppleOrOrangeJuice()
         {
             // Arrange
-            Drink blackberryJuice = Drink.BlackberryJuice();
-            Drink appleJuice = Drink.AppleJuice();
-            Drink orangeJuice = Drink.OrangeJuice();
+            var blackberryJuice = Drink.BlackberryJuice();
+            var appleJuice = Drink.AppleJuice();
+            var orangeJuice = Drink.OrangeJuice();
             ISpecification<Drink> juiceSpec = new Spec<Drink>(d => d.Name.ToLower().Contains("juice"));
             ISpecification<Drink> appleSpec = new Spec<Drink>(d => d.Name.ToLower().Contains("apple"));
             ISpecification<Drink> orangeSpec = new Spec<Drink>(d => d.Name.ToLower().Contains("orange"));
@@ -49,8 +49,8 @@ namespace NSpecifications.Tests
         public void And()
         {
             // Arrange
-            Drink coldWhiskey = Drink.ColdWhiskey();
-            Drink appleJuice = Drink.AppleJuice();
+            var coldWhiskey = Drink.ColdWhiskey();
+            var appleJuice = Drink.AppleJuice();
             ISpecification<Drink> whiskeySpec = new Spec<Drink>(d => d.Name.ToLower() == "whiskey");
             ISpecification<Drink> coldSpec = new Spec<Drink>(d => d.With.Any(a => a.ToLower() == "ice"));
 

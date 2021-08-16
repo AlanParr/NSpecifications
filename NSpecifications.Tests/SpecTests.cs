@@ -12,8 +12,8 @@ namespace NSpecifications.Tests
         public void WhiskeyAndCold()
         {
             // Arrange
-            Drink coldWhiskeyCandidate = Drink.ColdWhiskey();
-            Drink appleJuiceCandidate = Drink.AppleJuice();
+            var coldWhiskeyCandidate = Drink.ColdWhiskey();
+            var appleJuiceCandidate = Drink.AppleJuice();
             ASpec<Drink> whiskeySpec = new Spec<Drink>(d => d.Name.ToLower() == "whiskey");
             ASpec<Drink> coldDrinkSpec = new Spec<Drink>(d => d.With.Any(w => w.ToLower() == "ice"));
 
@@ -32,9 +32,9 @@ namespace NSpecifications.Tests
         public void AppleOrOrangeJuice()
         {
             // Arrange
-            Drink blackberryJuice = Drink.BlackberryJuice();
-            Drink appleJuice = Drink.AppleJuice();
-            Drink orangeJuice = Drink.OrangeJuice();
+            var blackberryJuice = Drink.BlackberryJuice();
+            var appleJuice = Drink.AppleJuice();
+            var orangeJuice = Drink.OrangeJuice();
             ASpec<Drink> juiceSpec = new Spec<Drink>(d => d.Name.ToLower().Contains("juice"));
             ASpec<Drink> appleSpec = new Spec<Drink>(d => d.Name.ToLower().Contains("apple"));
             ASpec<Drink> orangeSpec = new Spec<Drink>(d => d.Name.ToLower().Contains("orange"));
@@ -55,8 +55,8 @@ namespace NSpecifications.Tests
         public void And()
         {
             // Arrange
-            Drink coldWhiskey = Drink.ColdWhiskey();
-            Drink appleJuice = Drink.AppleJuice();
+            var coldWhiskey = Drink.ColdWhiskey();
+            var appleJuice = Drink.AppleJuice();
             ASpec<Drink> whiskeySpec = new Spec<Drink>(d => d.Name.ToLower() == "whiskey");
             ASpec<Drink> coldSpec = new Spec<Drink>(d => d.With.Any(a => a.ToLower() == "ice"));
 
@@ -75,9 +75,9 @@ namespace NSpecifications.Tests
         public void Any()
         {
             // Arrange
-            Drink blackberryJuice = Drink.BlackberryJuice();
-            Drink appleJuice = Drink.AppleJuice();
-            Drink orangeJuice = Drink.OrangeJuice();
+            var blackberryJuice = Drink.BlackberryJuice();
+            var appleJuice = Drink.AppleJuice();
+            var orangeJuice = Drink.OrangeJuice();
             
             // Assert
             new[] { blackberryJuice, appleJuice, orangeJuice }.Are(Spec.Any<Drink>()).Should().BeTrue();
@@ -87,9 +87,9 @@ namespace NSpecifications.Tests
         public void Not()
         {
             // Arrange
-            Drink blackberryJuice = Drink.BlackberryJuice();
-            Drink appleJuice = Drink.AppleJuice();
-            Drink orangeJuice = Drink.OrangeJuice();
+            var blackberryJuice = Drink.BlackberryJuice();
+            var appleJuice = Drink.AppleJuice();
+            var orangeJuice = Drink.OrangeJuice();
 
             // Assert
             new[] { blackberryJuice, appleJuice, orangeJuice }.Are(Spec.Not<Drink>()).Should().BeFalse();
