@@ -1,3 +1,6 @@
+1.4.1
+ - Added IQueryableExtensions to make usage of multiple specifications in Where and OrderBy clauses a better experience.
+
 1.4.0
  - Updated package to NetStandard 2.0.
  - Fixed broken unit tests.

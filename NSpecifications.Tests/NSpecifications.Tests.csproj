@@ -74,6 +74,8 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Entities\DrinksContext.cs" />
+    <Compile Include="IQueryableExtensionsTests.cs" />
     <Compile Include="OrSpecificationTests.cs" />
     <Compile Include="NotSpecificationTests.cs" />
     <Compile Include="AndSpecificationTests.cs" />

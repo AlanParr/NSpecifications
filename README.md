@@ -141,7 +141,12 @@ Example:
 var greatWhiskey = new Spec<Drink>(drink => drink.Type == "Whiskey" && drink.Age >= 11);
 var fresh = new Spec<Drink>(drink => drink.Extras.Contains("Ice"));
 var myFavouriteDrink = repository.FindOne(greatWhiskey & fresh);
-```    
+```
+
+Using IQueryableExtensions, the above can also be expressed as:
+```csharp
+var myFavouriteDrink = repository.FindOne(greatWhiskey.And(fresh));
+```
 Let me dig into the details:
 
  - Following the example from Eric Evans book I usually name my specifications as objects rather than predicates. I could name it  `greatWhiskeySpec` or `greatWhiskey` for short but not `isGreatWhiskey`. My aim is to make it clear that a specification is be a bit more than just a simple boolean expression. 
@@ -201,7 +206,7 @@ public User[] FindByNameAndLockedStatus(string name = null, bool? isLockedOut = 
 
 ## Install it from NuGet Gallery ##
 ```
-Install-Package NSpecifications -Version 1.1.0
+Install-Package NSpecifications.NETStandard -Version 1.4.1
 ```
 
 ## References:
