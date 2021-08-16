@@ -2,7 +2,6 @@
 using FluentAssertions;
 using NSpecifications.Tests.Entities;
 using NUnit.Framework;
-using NSpecifications;
 
 namespace NSpecifications.Tests
 {
