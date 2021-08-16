@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Copyright>Copyright © 2021</Copyright>
-    <Version>1.40</Version>
+    <Version>1.4</Version>
     <PackageProjectUrl>https://github.com/AlanParr/NSpecifications</PackageProjectUrl>
     <RepositoryUrl>https://github.com/AlanParr/NSpecifications</RepositoryUrl>
     <description>NSpecification is the most complete library for the Specification pattern and it's grounded on the Domain-Driven Design principles. Provides interface, abstract and a generic specification, composable, supports operators. This is probably the most fluent and least verbose library. Specifications can be composed with real operators (&amp;, |, !, ==, !=). They are interchangeable with Expression&lt;Func&lt;T, bool&gt;&gt; and Func&lt;T, bool&gt; and can be combined directly with boolean expressions. Check the tutorial in the GitHub.</description>
