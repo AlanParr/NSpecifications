@@ -5,12 +5,12 @@ using NUnit.Framework;
 
 namespace NSpecifications.Tests
 {
-    [TestFixture(Description = "Tests IEnumerable extensions against a plain lambda to ensure the results are the same.")]
+    [TestFixture(Description = "Tests IQueryable extensions against a plain lambda and Specs with operators to ensure the results are the same.")]
     public class IQueryableExtensionsTests
     {
-        private ISpecification<Drink> _juiceSpec;
-        private ISpecification<Drink> _whiskeySpec;
-        private ISpecification<Drink> _appleSpec;
+        private Spec<Drink> _juiceSpec;
+        private Spec<Drink> _whiskeySpec;
+        private Spec<Drink> _appleSpec;
         private DrinksContext _drinksContext;
 
         [OneTimeSetUp]
@@ -26,27 +26,33 @@ namespace NSpecifications.Tests
         public void WhereWithOrSpecification()
         {
             var lambdaResult = _drinksContext.Drinks.Where(x => x.Name.ToLower().Contains("juice") || x.Name.ToLower().Contains("whiskey"));
-            var specResult = _drinksContext.Drinks.Where(_juiceSpec.Or(_whiskeySpec));
+            var specOperatorResult = _drinksContext.Drinks.Where(_juiceSpec | _whiskeySpec);
+            var specExtensionsResult = _drinksContext.Drinks.Where(_juiceSpec.Or(_whiskeySpec));
 
-            lambdaResult.Should().BeEquivalentTo(specResult, o => o.Excluding(c => c.ManufacturedOn));
+            lambdaResult.Should().BeEquivalentTo(specOperatorResult, o => o.Excluding(c => c.ManufacturedOn));
+            lambdaResult.Should().BeEquivalentTo(specExtensionsResult, o => o.Excluding(c => c.ManufacturedOn));
         }
 
         [Test]
         public void WhereWithAndSpecification()
         {
             var lambdaResult = _drinksContext.Drinks.Where(x => x.Name.ToLower().Contains("juice") && x.Name.ToLower().Contains("apple"));
-            var specResult = _drinksContext.Drinks.Where(_juiceSpec.And(_appleSpec));
+            var specOperatorResult = _drinksContext.Drinks.Where(_juiceSpec & _appleSpec);
+            var specExtensionsResult = _drinksContext.Drinks.Where(_juiceSpec.And(_appleSpec));
 
-            lambdaResult.Should().BeEquivalentTo(specResult, o => o.Excluding(c => c.ManufacturedOn));
+            lambdaResult.Should().BeEquivalentTo(specOperatorResult, o => o.Excluding(c => c.ManufacturedOn));
+            lambdaResult.Should().BeEquivalentTo(specExtensionsResult, o => o.Excluding(c => c.ManufacturedOn));
         }
 
         [Test]
         public void WhereWithNotSpecification()
         {
             var lambdaResult = _drinksContext.Drinks.Where(x => !x.Name.ToLower().Contains("juice"));
-            var specResult = _drinksContext.Drinks.Where(_juiceSpec.Not());
+            var specOperatorResult = _drinksContext.Drinks.Where(!_juiceSpec);
+            var specExtensionsResult = _drinksContext.Drinks.Where(_juiceSpec.Not());
 
-            lambdaResult.Should().BeEquivalentTo(specResult, o => o.Excluding(c => c.ManufacturedOn));
+            lambdaResult.Should().BeEquivalentTo(specOperatorResult, o => o.Excluding(c => c.ManufacturedOn));
+            lambdaResult.Should().BeEquivalentTo(specExtensionsResult, o => o.Excluding(c => c.ManufacturedOn));
         }
 
         [Test]
@@ -55,9 +61,11 @@ namespace NSpecifications.Tests
             var lambdaResult = _drinksContext.Drinks.OrderBy(x =>
                 x.Name.ToLower().Contains("juice") || x.Name.ToLower().Contains("whiskey"));
 
-            var specResult = _drinksContext.Drinks.OrderBy(_juiceSpec.Or(_whiskeySpec));
+            var specOperatorResult = _drinksContext.Drinks.OrderBy(_juiceSpec | _whiskeySpec);
+            var specExtensionsResult = _drinksContext.Drinks.OrderBy(_juiceSpec.Or(_whiskeySpec));
 
-            lambdaResult.Should().BeEquivalentTo(specResult, o=>o.Excluding(c=>c.ManufacturedOn));
+            lambdaResult.Should().BeEquivalentTo(specOperatorResult, o=>o.Excluding(c=>c.ManufacturedOn));
+            lambdaResult.Should().BeEquivalentTo(specExtensionsResult, o=>o.Excluding(c=>c.ManufacturedOn));
         }
     }
 }
