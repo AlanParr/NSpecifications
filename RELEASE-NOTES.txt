@@ -1,0 +1,4 @@
+1.4.0
+ - Updated package to NetStandard 2.0.
+ - Fixed broken unit tests.
+ - Minor refactoring
