@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NSpecifications
 {
@@ -15,24 +11,12 @@ namespace NSpecifications
 
         internal OrSpecification(ISpecification<TEntity> spec1, ISpecification<TEntity> spec2)
         {
-            if (spec1 == null)
-                throw new ArgumentNullException("spec1");
-
-            if (spec2 == null)
-                throw new ArgumentNullException("spec2");
-
-            Spec1 = spec1;
-            Spec2 = spec2;
+            Spec1 = spec1 ?? throw new ArgumentNullException(nameof(spec1));
+            Spec2 = spec2 ?? throw new ArgumentNullException(nameof(spec2));
         }
 
-        public Expression<Func<TEntity, bool>> Expression
-        {
-            get { return Spec1.Expression.Or(Spec2.Expression); }
-        }
+        public Expression<Func<TEntity, bool>> Expression => Spec1.Expression.Or(Spec2.Expression);
 
-        public bool IsSatisfiedBy(TEntity candidate)
-        {
-            return Spec1.IsSatisfiedBy(candidate) || Spec2.IsSatisfiedBy(candidate);
-        }
+        public bool IsSatisfiedBy(TEntity candidate) => Spec1.IsSatisfiedBy(candidate) || Spec2.IsSatisfiedBy(candidate);
     }
 }
