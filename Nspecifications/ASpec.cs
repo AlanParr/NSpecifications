@@ -151,78 +151,61 @@ namespace NSpecifications
 
         public sealed class And : ASpec<T>, IOrSpecification<T>
         {
-            public ASpec<T> Spec1 { get; private set; }
+            public ASpec<T> Spec1 { get; }
 
-            public ASpec<T> Spec2 { get; private set; }
+            public ASpec<T> Spec2 { get; }
 
-            ISpecification<T> IOrSpecification<T>.Spec1 { get { return Spec1; } }
+            ISpecification<T> IOrSpecification<T>.Spec1 => Spec1;
 
-            ISpecification<T> IOrSpecification<T>.Spec2 { get { return Spec1; } }
+            ISpecification<T> IOrSpecification<T>.Spec2 => Spec1;
 
             internal And(ASpec<T> spec1, ASpec<T> spec2)
             {
-                Spec1 = spec1 ?? throw new ArgumentNullException("spec1");
-                Spec2 = spec2 ?? throw new ArgumentNullException("spec2");
+                Spec1 = spec1 ?? throw new ArgumentNullException(nameof(spec1));
+                Spec2 = spec2 ?? throw new ArgumentNullException(nameof(spec2));
             }
 
-            public override Expression<Func<T, bool>> Expression
-            {
-                get { return Spec1.Expression.And(Spec2.Expression); }
-            }
+            public override Expression<Func<T, bool>> Expression => Spec1.Expression.And(Spec2.Expression);
 
-            public new bool IsSatisfiedBy(T candidate)
-            {
-                return Spec1.IsSatisfiedBy(candidate) && Spec2.IsSatisfiedBy(candidate);
-            }
+            public new bool IsSatisfiedBy(T candidate) =>
+                Spec1.IsSatisfiedBy(candidate) && Spec2.IsSatisfiedBy(candidate);
         }
 
         public sealed class Or : ASpec<T>, IOrSpecification<T>
         {
-            public ASpec<T> Spec1 { get; private set; }
+            public ASpec<T> Spec1 { get; }
 
-            public ASpec<T> Spec2 { get; private set; }
+            public ASpec<T> Spec2 { get; }
 
-            ISpecification<T> IOrSpecification<T>.Spec1 { get { return Spec1; } }
+            ISpecification<T> IOrSpecification<T>.Spec1 => Spec1;
 
-            ISpecification<T> IOrSpecification<T>.Spec2 { get { return Spec1; } }
+            ISpecification<T> IOrSpecification<T>.Spec2 => Spec2;
 
             internal Or(ASpec<T> spec1, ASpec<T> spec2)
             {
-                Spec1 = spec1 ?? throw new ArgumentNullException("spec1");
-                Spec2 = spec2 ?? throw new ArgumentNullException("spec2");
+                Spec1 = spec1 ?? throw new ArgumentNullException(nameof(spec1));
+                Spec2 = spec2 ?? throw new ArgumentNullException(nameof(spec2));
             }
 
-            public override Expression<Func<T, bool>> Expression
-            {
-                get { return Spec1.Expression.Or(Spec2.Expression); }
-            }
+            public override Expression<Func<T, bool>> Expression => Spec1.Expression.Or(Spec2.Expression);
 
-            public bool Is(T candidate)
-            {
-                return Spec1.IsSatisfiedBy(candidate) || Spec2.IsSatisfiedBy(candidate);
-            }
+            public bool Is(T candidate) => Spec1.IsSatisfiedBy(candidate) || Spec2.IsSatisfiedBy(candidate);
         }
 
         public sealed class Not : ASpec<T>, INotSpecification<T>
         {
-            public ASpec<T> Inner { get; private set; }
+            public ASpec<T> Inner { get; }
 
-            ISpecification<T> INotSpecification<T>.Inner { get { return Inner; } }
+            ISpecification<T> INotSpecification<T>.Inner => Inner;
 
             internal Not(ASpec<T> spec)
             {
-                Inner = spec ?? throw new ArgumentNullException("spec");
+                Inner = spec ?? throw new ArgumentNullException(nameof(spec));
             }
 
-            public override Expression<Func<T, bool>> Expression
-            {
-                get { return Inner.Expression.Not(); }
-            }
+            public override Expression<Func<T, bool>> Expression => Inner.Expression.Not();
 
-            public bool Is(T candidate)
-            {
-                return !Inner.IsSatisfiedBy(candidate);
-            }
+            public bool Is(T candidate) => !Inner.IsSatisfiedBy(candidate);
         }
     }
 }

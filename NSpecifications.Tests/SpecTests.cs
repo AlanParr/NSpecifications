@@ -72,6 +72,29 @@ namespace NSpecifications.Tests
         }
 
         [Test]
+        public void Or()
+        {
+            // Arrange
+            var coldWhiskey = Drink.ColdWhiskey();
+            var appleJuice = Drink.AppleJuice();
+            var blackberryJuice = Drink.BlackberryJuice();
+            ASpec<Drink> whiskeySpec = new Spec<Drink>(d => d.Name.ToLower() == "whiskey");
+            ASpec<Drink> appleJuiceSpec = new Spec<Drink>(d => d.Name.ToLower() == "apple juice");
+
+            // Act
+            var whiskeyOrAppleJuiceSpec = whiskeySpec | appleJuiceSpec;
+
+            // Assert
+            whiskeyOrAppleJuiceSpec.IsSatisfiedBy(coldWhiskey).Should().BeTrue();
+            whiskeyOrAppleJuiceSpec.IsSatisfiedBy(appleJuice).Should().BeTrue();
+            whiskeyOrAppleJuiceSpec.IsSatisfiedBy(blackberryJuice).Should().BeFalse();
+            // And
+            coldWhiskey.Is(whiskeyOrAppleJuiceSpec).Should().BeTrue();
+            appleJuice.Is(whiskeyOrAppleJuiceSpec).Should().BeTrue();
+            blackberryJuice.Is(whiskeyOrAppleJuiceSpec).Should().BeFalse();
+        }
+
+        [Test]
         public void Any()
         {
             // Arrange

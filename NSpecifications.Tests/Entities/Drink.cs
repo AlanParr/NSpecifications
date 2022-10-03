@@ -7,7 +7,7 @@ namespace NSpecifications.Tests.Entities
     {
         public Drink()
         {
-            With = new List<String>();
+            With = new List<string>();
         }
 
         public int Id { get; set; }
@@ -54,7 +54,7 @@ namespace NSpecifications.Tests.Entities
             return new Drink
             {
                 Id = id,
-                Name = "Backberry Juice",
+                Name = "Blackberry Juice",
                 ManufacturedOn = DateTime.Now.AddMonths(-1),
             };
         }
